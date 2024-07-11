@@ -12,7 +12,7 @@ const WorkplaceGuidelines = () => {
             <h3>Punctuality and Attendance</h3>
             <ul>
               <li>
-                Employees are expected to clock in using the Clock It app by
+                Employees are expected to clock in using the Pulse_HR app by
                 9:00 AM sharp.
               </li>
               <li>
@@ -30,7 +30,7 @@ const WorkplaceGuidelines = () => {
             <h3>Accurate Time Tracking</h3>
             <ul>
               <li>
-                Use the Clock It app to check in and out accurately, reflecting
+                Use the Pulse_HR app to check in and out accurately, reflecting
                 your actual work hours.
               </li>
               <li>
@@ -49,7 +49,7 @@ const WorkplaceGuidelines = () => {
             <ul>
               <li>
                 If you encounter any technical issues or have questions
-                regarding the Clock It app, contact the designated support team.
+                regarding the Pulse_HR app, contact the designated support team.
               </li>
               <li>
                 Report any malfunctions, errors, or discrepancies in the time
@@ -57,7 +57,7 @@ const WorkplaceGuidelines = () => {
               </li>
               <li>
                 Attend training sessions or review user guides to familiarize
-                yourself with the Clock It app's features and functionalities.
+                yourself with the Pulse_HR app's features and functionalities.
               </li>
             </ul>
           </div>

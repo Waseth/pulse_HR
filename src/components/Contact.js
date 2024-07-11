@@ -9,7 +9,7 @@ const Contact = () => {
         <p className="contact-header-content">
 
           If you encounter any technical issues or have any complaints
-          concerning Clockit, please don't hesitate to contact us. We're here to
+          concerning Pulse_HR, please don't hesitate to contact us. We're here to
           help!
         </p>
         <div className="contact-info">
@@ -29,7 +29,7 @@ const Contact = () => {
           </div>
           <div className="contact-item">
             <i className="fas fa-envelope"></i>
-            <p>Email: info@clockit.com</p>
+            <p>Email: info@pulsehr.com</p>
           </div>
         </div>
       </div>
