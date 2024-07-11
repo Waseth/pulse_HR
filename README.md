@@ -40,7 +40,7 @@ You use git clone to be able to download the documents in the GitHub
 Git
 
 ### Installation instruction
-```sh
+
 git clone git@github.com:ELIUD305KOOME/pulse_HR.git
 
 
