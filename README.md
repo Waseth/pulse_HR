@@ -39,8 +39,10 @@ You use git clone to be able to download the documents in the GitHub
 ## Installation Requirements
 Git
 
-## Installation instruction
- git clone git@github.com:ELIUD305KOOME/pulse_HR.git
+### Installation instruction
+```sh
+git clone git@github.com:ELIUD305KOOME/pulse_HR.git
+
 
 ## LIVE LINK
 [Git](gh-pages link)
