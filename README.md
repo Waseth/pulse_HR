@@ -53,9 +53,9 @@ React(FRONT-END),
 JSX(HTML,CSS,JAVASCRIPT)
 
 ## SUPPORT AND CONTACT DETAILS.
-WASETH EMMANUEL: https://github.com/Waseth,Phone Number: +254 798863379.
-TEDDY LOWELL: https://github.com/lowellteddy,Phone Number: +254 741953173.
-ELIUD KOOME: https://github.com/ELIUD305KOOME,Phone Number: +254 783537272.
+ https://github.com/Waseth,Phone Number: +254 798863379.
+ https://github.com/lowellteddy,Phone Number: +254 741953173.
+ https://github.com/ELIUD305KOOME,Phone Number: +254 783537272.
 
 ## LICENSE.
 The content of this site is licensed under the MIT license,
