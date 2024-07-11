@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import ActivityLog from "./ActivityLog";
 import './AdminDashboard.css';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ adminDetails }) => {
   const [userStats, setUserStats] = useState([]);
   const [users, setUsers] = useState([]);
   const [activityLog, setActivityLog] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [showActivityLog, setShowActivityLog] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/userStats")
@@ -17,7 +20,10 @@ const AdminDashboard = () => {
 
     fetch("http://localhost:3000/users")
       .then((response) => response.json())
-      .then((data) => setUsers(data))
+      .then((data) => {
+        setUsers(data);
+        setFilteredUsers(data);
+      })
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
@@ -30,16 +36,50 @@ const AdminDashboard = () => {
       });
   }, []);
 
-  const handleUserManagement = () => {
-    // Handle user management logic here
-    console.log("User management");
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setFilteredUsers(users.filter(user => user.name.toLowerCase().includes(query.toLowerCase())));
+  };
+
+  const toggleActivityLog = () => {
+    setShowActivityLog(!showActivityLog);
   };
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+    <div className="admin-dashboard-container">
+      <div className="admin-dashboard container">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, {adminDetails?.name || "Admin"}! You logged in at {adminDetails?.loginTime || "N/A"}.</p>
 
-      <ActivityLog activityLog={activityLog} />
+        <div id="search-container">
+          <input
+            type="text"
+            placeholder="Search for a user..."
+            value={searchQuery}
+            onChange={handleSearch}
+            id="search-bar"
+            className="search-bar"
+          />
+        </div>
+
+        <div id="activity-log-button-container">
+          <button id="activity-log-button" onClick={toggleActivityLog}>
+            {showActivityLog ? "Hide Activity Log" : "Show Activity Log"}
+          </button>
+        </div>
+
+        {showActivityLog && <ActivityLog activityLog={activityLog} />}
+
+        <div className="user-list">
+          <h2>User List</h2>
+          <ul>
+            {filteredUsers.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

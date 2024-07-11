@@ -60,14 +60,20 @@ const EmployeeDashboard = ({ firstName }) => {
   };
 
   return (
-    <div className="employee-dashboard">
-      <h1>Employee Dashboard</h1>
-      <UserProfile userName={userName} userRole={userRole} />
-      <AttendanceTable attendanceData={attendanceData} />
-      <button onClick={handleTimesheetSubmit}>Submit Timesheet</button>
-      <button onClick={handleLogout}>Logout</button>
-      <ActivityLog activityLog={activityLog} />
-      {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
+    <div className="employee-dashboard-container">
+      <div className="employee-dashboard">
+        <h1>Employee Dashboard</h1>
+        <UserProfile userName={userName} userRole={userRole} />
+        <AttendanceTable attendanceData={attendanceData} />
+        <button id="submit-timesheet-button" onClick={handleTimesheetSubmit}>
+          Submit Timesheet
+        </button>
+        <button id="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+        <ActivityLog activityLog={activityLog} />
+        {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
+      </div>
     </div>
   );
 };
