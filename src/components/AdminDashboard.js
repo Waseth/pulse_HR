@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ActivityLog from "./ActivityLog";
 import './AdminDashboard.css';
 
@@ -9,6 +10,7 @@ const AdminDashboard = ({ adminDetails }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [showActivityLog, setShowActivityLog] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/userStats")
@@ -46,6 +48,11 @@ const AdminDashboard = ({ adminDetails }) => {
     setShowActivityLog(!showActivityLog);
   };
 
+  const handleLogout = () => {
+    // Perform any additional logout logic if necessary
+    navigate('/'); // Redirect to landing page
+  };
+
   return (
     <div className="admin-dashboard-container">
       <div className="admin-dashboard container">
@@ -70,6 +77,10 @@ const AdminDashboard = ({ adminDetails }) => {
         </div>
 
         {showActivityLog && <ActivityLog activityLog={activityLog} />}
+        
+        <button id="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
 
         <div className="user-list">
           <h2>User List</h2>

@@ -7,6 +7,8 @@ function LoginPage({ setFirstName, firstName }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
@@ -19,7 +21,30 @@ function LoginPage({ setFirstName, firstName }) {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
+    // Validate form
+    if (!email || !password || !role) {
+      setError('Please fill in all fields.');
+      return;
+    }
+    setError('');
     // Mock login validation
+    if (role.toLowerCase() === 'admin') {
+      navigate('/AdminDashboard');
+    } else {
+      navigate('/EmployeeDashboard');
+    }
+  };
+
+  const handleSignUpSubmit = (event) => {
+    event.preventDefault();
+    // Validate form
+    if (!firstName || !lastName || !role || !email || !password) {
+      setError('Please fill in all fields.');
+      return;
+    }
+    setError('');
+    // Perform sign-up logic
+    // Mock sign-up validation
     if (role.toLowerCase() === 'admin') {
       navigate('/AdminDashboard');
     } else {
@@ -30,15 +55,38 @@ function LoginPage({ setFirstName, firstName }) {
   return (
     <div className={`container ${isSignUp ? 'active' : ''}`}>
       <div className="form-container sign-up">
-        <form>
+        <form onSubmit={handleSignUpSubmit}>
           <h1>Create Account</h1>
           <span>Please fill-in the spaces to create an active account</span>
-          <input type="text" placeholder="First Name" name="First Name" onChange={(e) => setFirstName(e.target.value)} />
-          <input type="text" placeholder="Last Name" name="Last Name" />
-          <input type="text" placeholder="Role" onChange={(e) => setRole(e.target.value)} />
-          <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-          <button>Sign Up</button>
+          <input 
+            type="text" 
+            placeholder="First Name" 
+            name="First Name" 
+            onChange={(e) => setFirstName(e.target.value)} 
+          />
+          <input 
+            type="text" 
+            placeholder="Last Name" 
+            name="Last Name"
+            onChange={(e) => setLastName(e.target.value)} 
+          />
+          <input 
+            type="text" 
+            placeholder="Role" 
+            onChange={(e) => setRole(e.target.value)} 
+          />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+          <button type="submit">Sign Up</button>
+          {error && <p className="error">{error}</p>}
         </form>
       </div>
       <div className="form-container sign-in">
@@ -65,6 +113,7 @@ function LoginPage({ setFirstName, firstName }) {
           />
           <a href="#">Forgot Your Password?</a>
           <button type="submit">Log In</button>
+          {error && <p className="error">{error}</p>}
         </form>
       </div>
       <div className="toggle-container">
