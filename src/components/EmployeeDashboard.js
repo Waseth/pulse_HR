@@ -39,13 +39,13 @@ const EmployeeDashboard = ({ firstName }) => {
       .then((response) => response.json())
       .then((data) => setActivityLog(data))
       .catch((error) => {
-        console.error("Error fetching activity log:", error);
+        window.alert("Error fetching activity log:", error);
       });
   }, [firstName]);
 
   const handleTimesheetSubmit = () => {
     // Handle timesheet submission logic here
-    console.log("Timesheet submitted");
+    window.alert("Timesheet submitted");
   };
 
   const handleLogout = () => {
