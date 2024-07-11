@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import './EmployeeDashboard.css'; // Ensure this is imported to apply the CSS
+import { useNavigate } from "react-router-dom";
+import './FeedbackForm.css'; // Ensure this is imported to apply the CSS
 
 const FeedbackForm = ({ onSubmit }) => {
   const [feedback, setFeedback] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(feedback);
+    window.alert("Thank you for your feedback!");
+    navigate('/'); // Redirect to home page
   };
 
   return (

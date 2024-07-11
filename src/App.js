@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import EmployeeDashboard from './components/EmployeeDashboard';
-import AdminDashboard from './components/AdminDashboard'; // Import AdminDashboard component
+import AdminDashboard from './components/AdminDashboard'; 
 import LandingPage from './components/LandingPage';
 import About from './components/About';
 import WorkplaceGuidelines from './components/WorkplaceGuidelines';
@@ -23,6 +23,8 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/WorkplaceGuidelines" element={<WorkplaceGuidelines />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<EmployeeDashboard />} />
       </Routes>
     </Router>
   );
