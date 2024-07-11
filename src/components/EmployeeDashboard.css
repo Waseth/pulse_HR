@@ -1,39 +1,28 @@
-.employee-dashboard {
-  /* max-width: 800px; */
-  /* margin: 0 auto; */
-  margin-bottom: 500px;
-  /* padding: 20px; */
-}
-
-.employee-dashboard h1 {
-  margin-left: 120px;
-  font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  margin-top: 150px;
-}
 .employee-dashboard-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
-  width:100vh;
+  height: 100vh;
   background-color: #f5f5f5;
   border-radius: 10px;
+  padding: 20px;
 }
 
 .employee-dashboard {
-  padding: 20px;
-  border-radius: 20px; /* Rounded corners */
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  background-color: transparent; /* Transparent background */
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff; /* Slightly change to white for visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding shadow for better visibility */
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 40px;
+.employee-dashboard h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
   color: #333;
 }
 
@@ -45,13 +34,39 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
   margin-right: 10px;
-  margin-top:40px ;
+  margin-top: 40px;
 }
 
-#submit-timesheet-button:hover{
+#submit-timesheet-button:hover {
   background-color: green;
 }
 
-#logout-button:hover{
+#logout-button:hover {
   background-color: red;
 }
+
+.user-profile, .attendance-table, .activity-log, .feedback-form {
+  margin-bottom: 20px;
+}
+
+/* Add space between the buttons */
+button + button {
+  margin-left: 10px;
+}
+
+.user-profile {
+  margin-top: 20px;
+}
+
+.attendance-table {
+  margin-top: 20px;
+}
+
+.activity-log {
+  margin-top: 20px;
+}
+
+.feedback-form {
+  margin-top: 20px;
+}
+
