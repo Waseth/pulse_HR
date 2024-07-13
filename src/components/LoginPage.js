@@ -19,7 +19,7 @@ function LoginPage({ setFirstName, firstName }) {
     setIsSignUp(false);
   };
 
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
     // Validate form
     if (!email || !password || !role) {
@@ -27,15 +27,33 @@ function LoginPage({ setFirstName, firstName }) {
       return;
     }
     setError('');
-    // Mock login validation
-    if (role.toLowerCase() === 'admin') {
-      navigate('/AdminDashboard');
-    } else {
-      navigate('/EmployeeDashboard');
+    
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, role }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Login failed.');
+      }
+      
+      const data = await response.json();
+      
+      if (role.toLowerCase() === 'admin') {
+        navigate('/AdminDashboard');
+      } else {
+        navigate('/EmployeeDashboard');
+      }
+    } catch (error) {
+      setError('Login failed. Please check your credentials.');
     }
   };
 
-  const handleSignUpSubmit = (event) => {
+  const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     // Validate form
     if (!firstName || !lastName || !role || !email || !password) {
@@ -43,12 +61,29 @@ function LoginPage({ setFirstName, firstName }) {
       return;
     }
     setError('');
-    // Perform sign-up logic
-    // Mock sign-up validation
-    if (role.toLowerCase() === 'admin') {
-      navigate('/AdminDashboard');
-    } else {
-      navigate('/EmployeeDashboard');
+    
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName, role, email, password }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Registration failed.');
+      }
+      
+      const data = await response.json();
+      
+      if (role.toLowerCase() === 'admin') {
+        navigate('/AdminDashboard');
+      } else {
+        navigate('/EmployeeDashboard');
+      }
+    } catch (error) {
+      setError('Registration failed. Please try again later.');
     }
   };
 

@@ -4,7 +4,7 @@ import ActivityLog from "./ActivityLog";
 import './AdminDashboard.css';
 
 const AdminDashboard = ({ adminDetails }) => {
-  const [userStats, setUserStats] = useState([]);
+  // const [userStats, setUserStats] = useState([]);
   const [users, setUsers] = useState([]);
   const [activityLog, setActivityLog] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,14 +13,14 @@ const AdminDashboard = ({ adminDetails }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/userStats")
-      .then((response) => response.json())
-      .then((data) => setUserStats(data))
-      .catch((error) => {
-        console.error("Error fetching user statistics:", error);
-      });
+    // fetch("http://localhost:3000/userStats")
+    //   .then((response) => response.json())
+    //   .then((data) => setUserStats(data))
+    //   .catch((error) => {
+    //     console.error("Error fetching user statistics:", error);
+    //   });
 
-    fetch("http://localhost:3000/users")
+    fetch("/users")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -30,7 +30,7 @@ const AdminDashboard = ({ adminDetails }) => {
         console.error("Error fetching users:", error);
       });
 
-    fetch("http://localhost:3000/activity")
+    fetch("/activity")
       .then((response) => response.json())
       .then((data) => setActivityLog(data))
       .catch((error) => {
@@ -86,7 +86,7 @@ const AdminDashboard = ({ adminDetails }) => {
           <h2>User List</h2>
           <ul>
             {filteredUsers.map(user => (
-              <li key={user.id}>{user.name}</li>
+              <li key={user.id}><h3>{user.firstname}</h3> {user.lastname} <p>{user.email}</p></li>
             ))}
           </ul>
         </div>

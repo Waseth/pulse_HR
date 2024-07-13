@@ -1,47 +1,54 @@
 import React, { useState, useEffect } from "react";
 import AttendanceTable from "./AttendanceTable";
 import UserProfile from "./UserProfile";
-import './EmployeeDashboard.css';
-import ActivityLog from "./ActivityLog";
+// import nowLog from "./nowLog";
 import FeedbackForm from "./FeedbackForm";
+import './EmployeeDashboard.css';
 
-const EmployeeDashboard = ({ firstName }) => {
-  const [attendanceData, setAttendanceData] = useState({
+const EmployeeDashboard = ({ email }) => {
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    role: "",
     attendanceStatus: "",
     date: "",
     arrivalTime: ""
   });
-  const [userName, setUserName] = useState("");
-  const [userRole, setUserRole] = useState("");
-  const [activityLog, setActivityLog] = useState([]);
+  const [nowLog, setnowLog] = useState([]);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/user")
-      .then((response) => response.json())
-      .then((data) => {
-        const user = data.find(user => user.firstName === firstName);
-        if (user) {
-          setUserName(user.firstName + " " + user.lastName);
-          setUserRole(user.role);
-          setAttendanceData({
-            attendanceStatus: user.attendanceStatus,
-            date: user.date,
-            arrivalTime: user.arrivalTime
-          });
+    if (!email) return; // Ensure email is available before fetching data
+
+    // Fetch user data based on email
+    fetch('/now')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
         }
+        return response.json();
+      })
+      .then((data) => {
+        setUserData(data); // Assuming data contains user details
+        // Fetch now logs based on email
+        fetch(`/now/${email}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch now log");
+            }
+            return response.json();
+          })
+          .then((nowData) => {
+            setnowLog(nowData); // Assuming nowData is an array of logs
+          })
+          .catch((error) => {
+            console.error("Error fetching now log:", error);
+          });
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-
-    fetch("http://localhost:3000/activity")
-      .then((response) => response.json())
-      .then((data) => setActivityLog(data))
-      .catch((error) => {
-        window.alert("Error fetching activity log:", error);
-      });
-  }, [firstName]);
+  }, [email]);
 
   const handleTimesheetSubmit = () => {
     // Handle timesheet submission logic here
@@ -49,29 +56,39 @@ const EmployeeDashboard = ({ firstName }) => {
   };
 
   const handleLogout = () => {
-    setShowFeedbackForm(true);
+    // Handle logout logic here
+    setShowFeedbackForm(true); // Example behavior, adjust as needed
   };
 
   const handleFeedbackSubmit = (feedback) => {
     // Handle feedback form submission logic here
     console.log("Feedback submitted", feedback);
-    // Send feedback via email
-    setShowFeedbackForm(false);
+    // Send feedback via email or handle as needed
+    setShowFeedbackForm(false); // Example behavior, adjust as needed
   };
 
   return (
     <div className="employee-dashboard-container">
       <div className="employee-dashboard">
         <h1>Employee Dashboard</h1>
-        <UserProfile userName={userName} userRole={userRole} />
-        <AttendanceTable attendanceData={attendanceData} />
+        <UserProfile
+          userName={`${userData.firstName} ${userData.lastName}`}
+          userRole={userData.role}
+        />
+        <AttendanceTable
+          attendanceData={{
+            attendanceStatus: userData.attendanceStatus,
+            date: userData.date,
+            arrivalTime: userData.arrivalTime
+          }}
+        />
         <button id="submit-timesheet-button" onClick={handleTimesheetSubmit}>
           Submit Timesheet
         </button>
         <button id="logout-button" onClick={handleLogout}>
           Logout
         </button>
-        <ActivityLog activityLog={activityLog} />
+        <nowLog nowLog={nowLog} />
         {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
       </div>
     </div>

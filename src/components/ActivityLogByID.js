@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import {email} from './LoginPage'
+
 
 function ActivityLogComponent() {
-  const [activityLog, setActivityLog] = useState([]);
+  const [activity_Log, setActivity_Log] = useState([]);
 
   useEffect(() => {
     // Fetch activity logs from backend
-    fetch('/activity')
+    fetch(`/activity/${email}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch activity log');
@@ -13,7 +15,7 @@ function ActivityLogComponent() {
         return response.json();
       })
       .then(data => {
-        setActivityLog(data); // Assuming data is an array of activity logs
+        setActivity_Log(data.activity_logs); // Assuming data is an object with 'activity_logs' array
       })
       .catch(error => {
         console.error('Error fetching activity log:', error);
@@ -24,7 +26,7 @@ function ActivityLogComponent() {
     <div>
       <h2>Activity Log</h2>
       <ul>
-        {activityLog.map(item => (
+        {activity_Log.map(item => (
           <li key={item.id}>
             {/* Render each item */}
             <h3>{item.user_firstname} {item.user_lastname}</h3>

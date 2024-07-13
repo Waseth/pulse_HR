@@ -38,7 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500vh;
+  height: 50vh;
   width: 600vh;
   max-width: 960px;
   margin: 0 auto;
@@ -80,6 +80,12 @@
 
 #activity-log-button:hover {
   background-color: #0056b3;
+}
+.user-list{
+  margin: 20px;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .user-list ul {
