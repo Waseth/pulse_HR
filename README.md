@@ -21,17 +21,14 @@ PulseHR is a comprehensive company management and tracking system designed to st
 PulseHR is a powerful company, employee and attendance management app designed to streamline and simplify the way businesses. Our app empowers your workforce by providing a seamless and intuitive interface for easy check-ins and check-outs.
 
 ## FEATURES
--
 
--
-
--
-
--
-
--
-
--
+- User login and sign up.
+- Feedback form.
+- Activity logging.
+- Audit trails.
+- Overtime calculation.
+- Leave requests.
+- Shift scheduling.
 
 ## Installation
 You use git clone to be able to download the documents in the GitHub
