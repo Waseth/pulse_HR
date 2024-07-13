@@ -1,98 +1,121 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AttendanceTable from "./AttendanceTable";
 import UserProfile from "./UserProfile";
-// import nowLog from "./nowLog";
-import FeedbackForm from "./FeedbackForm";
 import './EmployeeDashboard.css';
+import ActivityLog from "./ActivityLog";
+import FeedbackForm from "./FeedbackForm";
 
-const EmployeeDashboard = ({ email }) => {
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    role: "",
+const EmployeeDashboard = ({ firstName }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const loginTime = location.state?.loginTime || "";
+
+  const [attendanceData, setAttendanceData] = useState({
     attendanceStatus: "",
     date: "",
-    arrivalTime: ""
+    arrivalTime: loginTime,
+    departureTime: "", // Initially empty, will be set on logout
   });
-  const [nowLog, setnowLog] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const [activityLog, setActivityLog] = useState([]);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const [overtimeHours, setOvertimeHours] = useState(null);
 
   useEffect(() => {
-    if (!email) return; // Ensure email is available before fetching data
-
-    // Fetch user data based on email
-    fetch('/now')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
-        return response.json();
-      })
+    fetch("http://localhost:3000/user")
+      .then((response) => response.json())
       .then((data) => {
-        setUserData(data); // Assuming data contains user details
-        // Fetch now logs based on email
-        fetch(`/now/${email}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Failed to fetch now log");
-            }
-            return response.json();
-          })
-          .then((nowData) => {
-            setnowLog(nowData); // Assuming nowData is an array of logs
-          })
-          .catch((error) => {
-            console.error("Error fetching now log:", error);
-          });
+        const user = data.find(user => user.firstName === firstName);
+        if (user) {
+          setUserName(`${user.firstName} ${user.lastName}`);
+          setUserRole(user.role);
+          setAttendanceData((prevData) => ({
+            ...prevData,
+            attendanceStatus: user.attendanceStatus,
+            date: user.date,
+            arrivalTime: user.arrivalTime || loginTime,
+          }));
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [email]);
+
+    fetch("http://localhost:3000/activity")
+      .then((response) => response.json())
+      .then((data) => setActivityLog(data))
+      .catch((error) => {
+        window.alert("Error fetching activity log:", error);
+      });
+  }, [firstName, loginTime]);
 
   const handleTimesheetSubmit = () => {
-    // Handle timesheet submission logic here
     window.alert("Timesheet submitted");
   };
 
   const handleLogout = () => {
-    // Handle logout logic here
-    setShowFeedbackForm(true); // Example behavior, adjust as needed
+    const logoutTime = new Date().toISOString();
+    const loginTimeMs = new Date(attendanceData.arrivalTime).getTime();
+    const logoutTimeMs = new Date(logoutTime).getTime();
+    const overtimeMs = logoutTimeMs - loginTimeMs;
+    const calculatedOvertimeHours = (overtimeMs / (1000 * 60 * 60)).toFixed(2);
+
+    setOvertimeHours(calculatedOvertimeHours);
+
+    const newActivityLog = {
+      userName,
+      logoutTime,
+      overtime: calculatedOvertimeHours,
+    };
+
+    fetch("http://localhost:3000/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newActivityLog),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Logout time logged successfully");
+          setShowFeedbackForm(true); // Show feedback form after successful logout
+        } else {
+          console.error("Failed to log logout time");
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging logout time:", error);
+      });
   };
 
   const handleFeedbackSubmit = (feedback) => {
-    // Handle feedback form submission logic here
     console.log("Feedback submitted", feedback);
-    // Send feedback via email or handle as needed
-    setShowFeedbackForm(false); // Example behavior, adjust as needed
+    setShowFeedbackForm(false);
+    window.alert(`You have worked for ${overtimeHours} hours of overtime today.`);
   };
 
   return (
     <div className="employee-dashboard-container">
       <div className="employee-dashboard">
         <h1>Employee Dashboard</h1>
-        <UserProfile
-          userName={`${userData.firstName} ${userData.lastName}`}
-          userRole={userData.role}
-        />
-        <AttendanceTable
-          attendanceData={{
-            attendanceStatus: userData.attendanceStatus,
-            date: userData.date,
-            arrivalTime: userData.arrivalTime
-          }}
-        />
+        <UserProfile userName={userName} userRole={userRole} />
+        <AttendanceTable attendanceData={attendanceData} />
         <button id="submit-timesheet-button" onClick={handleTimesheetSubmit}>
           Submit Timesheet
         </button>
         <button id="logout-button" onClick={handleLogout}>
           Logout
         </button>
-        <nowLog nowLog={nowLog} />
+        <div id="activity-log-container">
+          <ActivityLog activityLog={activityLog} />
+        </div>
         {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
       </div>
     </div>
   );
+  
 };
 
 export default EmployeeDashboard;

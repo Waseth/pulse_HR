@@ -6,7 +6,7 @@ const WorkplaceGuidelines = () => {
     <section id="workplace-guidelines">
 
       <div className="guideline-container">
-        <h2>Clock It Guidelines</h2>
+        <h2>Pulse_HR Guidelines</h2>
         <div className="guideline-list">
           <div className="guideline-item">
             <h3>Punctuality and Attendance</h3>
