@@ -107,7 +107,7 @@ const EmployeeDashboard = ({ firstName }) => {
 
   const handleLeaveFormSubmit = (event) => {
     event.preventDefault();
-    const mailtoLink = `mailto:kelvinmutugi336@gmail.com?subject=${encodeURIComponent(leaveDetails.subject)}&body=${encodeURIComponent(leaveDetails.message)}`;
+    const mailtoLink = `mailto:teddywasethkoome@gmail.com?subject=${encodeURIComponent(leaveDetails.subject)}&body=${encodeURIComponent(leaveDetails.message)}`;
     window.open(mailtoLink, '_blank');
     setShowLeaveForm(false);
     setLeaveDetails({ subject: "", message: "" });
