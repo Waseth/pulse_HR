@@ -22,6 +22,11 @@ const EmployeeDashboard = ({ firstName }) => {
   const [activityLog, setActivityLog] = useState([]);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [overtimeHours, setOvertimeHours] = useState(null);
+  const [showLeaveForm, setShowLeaveForm] = useState(false);
+  const [leaveDetails, setLeaveDetails] = useState({
+    subject: "",
+    message: ""
+  });
 
   useEffect(() => {
     fetch("http://localhost:3000/user")
@@ -56,7 +61,6 @@ const EmployeeDashboard = ({ firstName }) => {
   };
 
   const handleLogout = () => {
-
     const loginTimeMs = new Date(attendanceData.arrivalTime).getTime();
     const logoutTimeMs = new Date(attendanceData.departureTime).getTime();
     const overtimeMs = logoutTimeMs - loginTimeMs;
@@ -97,6 +101,26 @@ const EmployeeDashboard = ({ firstName }) => {
     window.alert(`You have worked for ${overtimeHours} hours of overtime today.`);
   };
 
+  const handleLeaveRequestClick = () => {
+    setShowLeaveForm(true);
+  };
+
+  const handleLeaveFormSubmit = (event) => {
+    event.preventDefault();
+    const mailtoLink = `mailto:kelvinmutugi336@gmail.com?subject=${encodeURIComponent(leaveDetails.subject)}&body=${encodeURIComponent(leaveDetails.message)}`;
+    window.open(mailtoLink, '_blank');
+    setShowLeaveForm(false);
+    setLeaveDetails({ subject: "", message: "" });
+  };
+
+  const handleLeaveDetailChange = (event) => {
+    const { name, value } = event.target;
+    setLeaveDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="employee-dashboard-container">
       <div className="employee-dashboard">
@@ -109,10 +133,37 @@ const EmployeeDashboard = ({ firstName }) => {
         <button id="logout-button" onClick={handleLogout}>
           Logout
         </button>
+        <button id="leave-request-button" onClick={handleLeaveRequestClick}>
+          Request Leave
+        </button>
         <div id="activity-log-container">
-        <ActivityLog activityLog={activityLog} />
+          <ActivityLog activityLog={activityLog} />
         </div>
         {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
+        {showLeaveForm && (
+          <form onSubmit={handleLeaveFormSubmit} className="leave-form">
+            <h2>Leave Request</h2>
+            <label htmlFor="subject">Subject:</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={leaveDetails.subject}
+              onChange={handleLeaveDetailChange}
+              required
+            />
+            <label htmlFor="message">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              value={leaveDetails.message}
+              onChange={handleLeaveDetailChange}
+              required
+            />
+            <button type="submit">Send Leave Request</button>
+            <button type="button" onClick={() => setShowLeaveForm(false)}>Cancel</button>
+          </form>
+        )}
       </div>
     </div>
   );
