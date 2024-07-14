@@ -1,0 +1,54 @@
+#workplace-guidelines {
+
+    margin-bottom: 50px;
+  }
+
+  .guidline-container {
+    /* max-width: 0px;
+    margin: 0 auto;
+    padding: 0 20px; */
+    margin-bottom: 300px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+    text-align: center;
+  }
+
+  .guideline-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .guideline-item {
+    background-color: #265073;
+    /* padding: 30px; */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  }
+
+  .guideline-item h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: floralwhite;
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .guideline-item ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+
+  .guideline-item li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ecf4d6;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 17px;
+  }

@@ -1,0 +1,115 @@
+
+.attendance-table {
+    border-style: solid;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .attendance-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #5b5b5b;
+  }
+  
+  .attendance-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+
+  .attendance-table tr:hover {
+    background-color: #e6e6e6;
+  }
+
+  #attendance-header{
+    margin-right: 400px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .admin-dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 600vh;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.admin-dashboard {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 1200px;
+}
+
+#search-container {
+  margin-bottom: 20px;
+}
+
+#search-bar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#activity-log-button-container {
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  
+}
+#activitylog{
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 15px;
+}
+
+#activity-log-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#activity-log-button:hover {
+  background-color: #0056b3;
+}
+.user-list{
+  margin: 20px;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.user-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-list li:last-child {
+  border-bottom: none;
+}

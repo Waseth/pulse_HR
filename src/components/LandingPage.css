@@ -1,0 +1,101 @@
+body {
+    padding-top: 80px;
+  }
+
+  .landing-page {
+    min-height: 100vh;
+    /* background-image: url("../Images/BG.png"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Navbar styles */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0c0c0c;
+    color: #fff;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .logo {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  }
+  .logo-text {
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: 23px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+
+  nav ul li {
+    margin-left: 1rem;
+  }
+
+  nav ul li a {
+    color: azure;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  nav ul li a:hover {
+    background-color: #555;
+  }
+
+  .login-btn {
+    background-color: #364182;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .login-btn:hover {
+    background-color: mediumpurple;
+    transform: scale(1.4);
+  }
+  .login-btn.scale:hover {
+    transform: scale(1.4);
+  }
+
+  /* Footer styles */
+  footer {
+    background-color: #333;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  .section {
+    display: none;
+  }
+
+  .section.active {
+    display: block;
+  }
