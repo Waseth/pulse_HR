@@ -7,7 +7,7 @@ const UserProfile = ({ userName, userRole }) => {
     <div className="User-Profile">
     <h2>Take Control of Your Attendance Today </h2>
       <p><strong>Hello</strong>, {userName}!</p>
-      <p className="role">Role: {userRole}</p>
+      <p className="role">Role: Employee</p>
 
       <p className="attendance-message">Check your attendance summary below and stay on top of your performance!</p>
     </div>

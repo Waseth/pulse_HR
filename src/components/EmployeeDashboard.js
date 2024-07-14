@@ -11,12 +11,18 @@ const EmployeeDashboard = ({ firstName }) => {
   const loginTime = location.state?.loginTime;
   const logoutTime = location.state?.logoutTime;
 
+  const currentDate = new Date();
+
+  // Format the date as needed (e.g., YYYY-MM-DD HH:MM:SS)
+  const formattedDate = currentDate.toISOString().slice(0, 10); // YYYY-MM-DD
+  const formattedTime = currentDate.toTimeString().slice(0, 8); // HH:MM:SS
+
   const [attendanceData, setAttendanceData] = useState({
-    attendanceStatus: "",
-    date: "",
-    arrivalTime: loginTime || "",
-    departureTime: logoutTime || ""
+    attendanceStatus: "login",
+    date: formattedDate,
+    arrivalTime: formattedTime
   });
+
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
   const [activityLog, setActivityLog] = useState([]);
@@ -29,7 +35,7 @@ const EmployeeDashboard = ({ firstName }) => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3000/user")
+    fetch("http://localhost:3000/activity")
       .then((response) => response.json())
       .then((data) => {
         const user = data.find(user => user.firstName === firstName);
@@ -48,7 +54,7 @@ const EmployeeDashboard = ({ firstName }) => {
         console.error("Error fetching user data:", error);
       });
 
-    fetch("http://localhost:3000/activity")
+    fetch("/activity")
       .then((response) => response.json())
       .then((data) => setActivityLog(data))
       .catch((error) => {
@@ -61,6 +67,7 @@ const EmployeeDashboard = ({ firstName }) => {
   };
 
   const handleLogout = () => {
+
     const loginTimeMs = new Date(attendanceData.arrivalTime).getTime();
     const logoutTimeMs = new Date(attendanceData.departureTime).getTime();
     const overtimeMs = logoutTimeMs - loginTimeMs;
@@ -100,7 +107,7 @@ const EmployeeDashboard = ({ firstName }) => {
     setShowFeedbackForm(false);
     window.alert(`You have worked for ${overtimeHours} hours of overtime today.`);
   };
-
+//   leave
   const handleLeaveRequestClick = () => {
     setShowLeaveForm(true);
   };
@@ -121,6 +128,7 @@ const EmployeeDashboard = ({ firstName }) => {
     }));
   };
 
+
   return (
     <div className="employee-dashboard-container">
       <div className="employee-dashboard">
@@ -137,7 +145,7 @@ const EmployeeDashboard = ({ firstName }) => {
           Request Leave
         </button>
         <div id="activity-log-container">
-          <ActivityLog activityLog={activityLog} />
+        <ActivityLog activityLog={activityLog} />
         </div>
         {showFeedbackForm && <FeedbackForm onSubmit={handleFeedbackSubmit} />}
         {showLeaveForm && (
